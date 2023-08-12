@@ -1,11 +1,10 @@
 FROM node:18-alpine
-name: ci
 
-on:
-  push:
-    branches:
-      - "main"
+# Add your Dockerfile instructions here
+# For example:
+# COPY . /app
+# WORKDIR /app
+# RUN npm install
 
-jobs:
-  build:
-    runs-on: ubuntu-latest
+# ENTRYPOINT ["node", "app.js"]
+
