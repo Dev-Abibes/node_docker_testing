@@ -2,17 +2,22 @@ name: Docker Image CI
 
 on:
   push:
-    branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
+    branches:
+      - "main"
 
 jobs:
-
   build:
-
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v3
+    - name: Checkout code
+      uses: actions/checkout@v2
+
     - name: Build the Docker image
       run: docker build . --file Dockerfile --tag my-image-name:$(date +%s)
+
+    - name: Log in to Docker Hub
+      run: docker login -u ${{ secrets.DOCKERHUB_USER}} -p ${{ secrets.DOCKER_SECRET }}
+
+    - name: Push Docker image
+      run: docker push my-image-name:$(date +%s)
